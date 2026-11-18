@@ -57,6 +57,7 @@ def determine_status(grades):
 def display_results(grades):
     print("\n========== STUDENT GRADE RESULTS ==========")
     print(f"Grades: {grades}")
+    print(f"Total Number of Grades: {len(grades)}")
     print(f"Average: {calculate_average(grades):.2f}")
     print(f"Highest Grade: {get_highest_grade(grades):.2f}")
     print(f"Lowest Grade: {get_lowest_grade(grades):.2f}")
