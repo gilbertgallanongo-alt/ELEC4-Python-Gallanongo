@@ -4,30 +4,39 @@
 # Date: November 20, 2026
 
 # Dito muna naka-save yung mga student.
+# List para sa names, set para walang doble.
 students = []
+student_names = set()
 
 def add_student():
-    # Kuha lang ng name na ia-add.
     name = input("Enter student name: ").strip()
 
-    if name:
-        students.append(name)
-        print(f"{name} added successfully.")
-    else:
+    if not name:
         print("Student name cannot be empty.")
+        return
+
+    # Check muna kung nasa records na.
+    name_key = name.casefold()
+
+    if name_key in student_names:
+        print("Student already exists.")
+    else:
+        students.append(name)
+        student_names.add(name_key)
+        print(f"{name} added successfully.")
 
 def remove_student():
-    # Hanapin yung name bago tanggalin.
     name = input("Enter student name to remove: ").strip()
 
     for student in students:
-        if student.lower() == name.lower():
+        if student.casefold() == name.casefold():
             students.remove(student)
+            student_names.remove(student.casefold())
+
             print(f"{student} removed successfully.")
             return
 
     print("Student not found.")
-
 
 def search_student():
     # Kahit part lang ng name, pwede na.
@@ -48,13 +57,15 @@ def search_student():
         print("No student found.")
 
 def display_students():
-    # Para makita lahat ng nasa list.
     print("\n========== STUDENT RECORDS ==========")
 
     if not students:
         print("No student records yet.")
     else:
-        for number, name in enumerate(students, start=1):
+        # Para alphabetical yung display.
+        sorted_students = sorted(students, key=str.casefold)
+
+        for number, name in enumerate(sorted_students, start=1):
             print(f"{number}. {name}")
 
     print(f"Total Students: {len(students)}")
@@ -90,3 +101,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Yung list, ginagamit ko para ma-save yung names ng students.
+# Pwede kasing maulit ang values sa list.
+# Yung set naman, hindi nag-aallow ng duplicate values.
+# Ginamit ko yung set para ma-check kung may kaparehong name na.
+# Kaya parehong useful yung list at set sa program na ito.
